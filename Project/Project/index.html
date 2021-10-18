@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Whack A Mole</title>
+        <link rel="stylesheet" type="text/css" href="index.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="score">Points: <span>0</span></div>
+
+        <div class="buttons">
+            <button class="play">PLAY</button>
+            <button class="stop">STOP</button>
+        </div>
+
+        <div class="cursor">
+            <img src="./images/hammer.png" />
+        </div>
+        
+        <div class="wrap">
+        
+        </div>
+        <script>
+            var hole = '<div class="hole"><img src="./images/naziga.png"></div>';
+            var holeNum = 16;
+            for(var i=0;i<holeNum;i++) {
+                $(".wrap").append(hole);
+            }
+            
+            /*function range(m,n) {
+                var temp = [];
+                for(var j=m;j<=n;j++) {
+                    temp.push(j);
+                }
+                return temp;
+            }*/
+            
+           //alert($)
+           var timer = setInterval(function () {
+               //alert(1);
+               //alert(range(0,15));
+           },1000)
+
+           const score = document.querySelector(".score span");
+           const holes = document.querySelectorAll(".hole");
+           const playBtn = document.querySelector(".buttons .play");
+           const stopBtn = document.querySelector(".buttons .stop");
+           const cursor = document.querySelector(".cursor img");
+
+           window.addEventListener("mousemove", (e) => {
+               cursor.style.top = e.pageY + "px";
+               cursor.style.left = e.pageX + "px";
+        
+
+           window.addEventListener("click", () => {
+               cursor.style.animation = "hit 0.1s ease";
+
+               /* Make the hammar click multiple times*/
+               setTimeout(() => {
+                   cursor.style.removeProperty("animation");
+               }, 100);
+           });
+        });
+
+           playBtn.addEventListener("click", () => {
+               playBtn.style.display = "none";
+               stopBtn.style.display = "inline-block";
+
+               let hole;
+               let points = 0;
+
+               const startGame = setInterval(() => {
+                   let arrayNo = Math.floor(Math.random() * 16);
+                   hole = holes[arrayNo];
+                   console.log(hole);
+               }, 700);
+
+               stopBtn.addEventListener("click", () => {
+                   clearInterval(startGame);
+                   stopBtn.style.display = "none";
+                   playBtn.style.display = "inline-block";
+               });
+           });
+        </script>
+    </body>
+</html>
+    
